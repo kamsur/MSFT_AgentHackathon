@@ -28,7 +28,7 @@ interface ProcessStep {
   status: "completed" | "active" | "pending"
 }
 
-const processSteps: ProcessStep[] = [
+/* const processSteps: ProcessStep[] = [
   {
     id: "1",
     title: "Supplier Selection",
@@ -83,7 +83,75 @@ const processSteps: ProcessStep[] = [
     icon: MapPin,
     status: "pending",
   },
-]
+] */
+
+  const processSteps: ProcessStep[] = [
+    {
+      id: "1",
+      title: "Raw Material Sourcing – Baotou, China",
+      description: "Rare earth elements and silicon mined and processed in Inner Mongolia",
+      riskScore: 8.9,
+      riskExplanation: 
+        "Export restrictions by Chinese government, high environmental regulation risk, " + 
+        "dependency on a single region for rare earths, and high energy consumption in processing.",
+      icon: Factory,
+      status: "completed",
+    },
+    {
+      id: "2",
+      title: "Land Transport to Port – Tianjin, China",
+      description: "Transport of processed materials via rail and truck to Tianjin port",
+      riskScore: 6.2,
+      riskExplanation: 
+        "Delays due to overburdened freight rail lines, industrial pollution protests affecting routes, " +
+        "and risks of regional COVID-19 shutdowns.",
+      icon: Truck,
+      status: "completed",
+    },
+    {
+      id: "3",
+      title: "Shipping to Taiwan – Port of Taichung",
+      description: "Container ship transport from Tianjin to Taichung, Taiwan",
+      riskScore: 7.3,
+      riskExplanation: 
+        "Risk of port congestion, South China Sea geopolitical tensions, " +
+        "and potential naval exercises disrupting shipping routes.",
+      icon: Ship,
+      status: "completed",
+    },
+    {
+      id: "4",
+      title: "Semiconductor Fabrication – Hsinchu Science Park, Taiwan",
+      description: "Processing of materials and chip manufacturing by TSMC in Hsinchu",
+      riskScore: 9.4,
+      riskExplanation: 
+        "Extreme dependence on a single foundry (TSMC), high earthquake risk, " +
+        "water scarcity due to droughts, and threat of Chinese military escalation.",
+      icon: Package,
+      status: "active",
+    },
+    {
+      id: "5",
+      title: "Export to Europe – Port of Hamburg",
+      description: "Shipping of finished wafers from Taiwan to Hamburg, Germany",
+      riskScore: 6.8,
+      riskExplanation: 
+        "Maritime bottlenecks (e.g. Suez Canal), long transit time (30+ days), fuel price volatility, " +
+        "and container shortages impacting outbound logistics.",
+      icon: Ship,
+      status: "pending",
+    },
+    {
+      id: "6",
+      title: "Final Delivery – Ingolstadt, Germany",
+      description: "Truck delivery of chips to a production site in Bavaria (e.g., Audi electronics hub)",
+      riskScore: 5.7,
+      riskExplanation: 
+        "Driver shortage in Europe, diesel cost volatility, and local infrastructure works causing delays.",
+      icon: MapPin,
+      status: "pending",
+    },
+  ];  
 
 const getRiskColor = (score: number) => {
   if (score >= 7) return "text-risk-high"
@@ -153,7 +221,7 @@ export function ProcessDetail({ onBack }: ProcessDetailProps) {
                     <div key={step.id} className="flex items-center">
                       <div className="flex flex-col items-center">
                         {/* Step Card */}
-                        <div className="bg-white border-2 border-gray-200 rounded-xl p-6 w-64 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="min-h-[400px] bg-white border-2 border-gray-200 rounded-xl p-6 w-64 shadow-sm hover:shadow-md transition-shadow">
                           <div className="flex items-center justify-between mb-4">
                             <div
                               className={`w-12 h-12 rounded-lg flex items-center justify-center ${getRiskBgColor(step.riskScore)}/10`}
@@ -234,7 +302,7 @@ export function ProcessDetail({ onBack }: ProcessDetailProps) {
       </Card>
 
       {/* Risk Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+{/*       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -274,7 +342,7 @@ export function ProcessDetail({ onBack }: ProcessDetailProps) {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
     </div>
   )
 }
