@@ -1,37 +1,70 @@
-import os
-from openai import AzureOpenAI
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from datetime import datetime
 
-endpoint = os.getenv("PROJECT_ENDPOINT", "https://hackathon-group6-123.services.ai.azure.com")
-model_name = os.getenv("MODEL_DEPLOYMENT_NAME", "gpt-4.1")
-deployment = os.getenv("MODEL_DEPLOYMENT_NAME", "gpt-4.1")
+app = FastAPI()
 
-subscription_key = os.getenv("SUBSCRIPTION_KEY", "ApkSH2yYEJr03QypDtkp7K6ub2Zd4FCEntVvUCPs68uzmDvyYpYdJQQJ99BGACYeBjFXJ3w3AAAAACOGauXV")
-
-api_version = os.getenv("API_VERSION", "2024-12-01-preview")
-
-client = AzureOpenAI(
-    api_version=api_version,
-    azure_endpoint=endpoint,
-    api_key=subscription_key,
+# Allow CORS (for frontend use, optional)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-response = client.chat.completions.create(
-    messages=[
-        {
-            "role": "system",
-            "content": "You are a helpful assistant.",
-        },
-        {
-            "role": "user",
-            "content": "I am going to Paris, what should I see?",
-        }
-    ],
-    max_completion_tokens=800,
-    temperature=1.0,
-    top_p=1.0,
-    frequency_penalty=0.0,
-    presence_penalty=0.0,
-    model=deployment
-)
+# Dummy data
+supplychains = [
+    {
+        "id": "chip-supply-1",
+        "title": "Chip Procurement – Asia to Europe"
+    }
+]
 
-print(response.choices[0].message.content)
+supplychain_details = {
+    "chip-supply-1": {
+        "id": "chip-supply-1",
+        "title": "Chip Procurement – Asia to Europe",
+        "totalRisk": 0.73,
+        "riskLevel": "High",
+        "lastUpdated": datetime(2025, 7, 15, 10, 32, 0).isoformat() + "Z",
+        "steps": [
+            {
+                "id": "step-1",
+                "order": 1,
+                "category": "Raw Materials",
+                "title": "Copper Mining – Peru",
+                "description": "Raw copper extracted by Company X.",
+                "location": "Peru",
+                "company": "MiningCorp SA",
+                "riskScore": 0.4,
+                "riskLevel": "Medium",
+                "riskDescription": "Political instability reported near the mining region."
+            },
+            {
+                "id": "step-2",
+                "order": 2,
+                "category": "Transport",
+                "title": "Shipment to Taiwan",
+                "description": "Transported via Pacific route to TSMC",
+                "location": "Pacific Ocean Route",
+                "company": "GlobalShipping Ltd.",
+                "riskScore": 0.9,
+                "riskLevel": "High",
+                "riskDescription": "Major strike at Port of Kaohsiung ongoing."
+            }
+        ]
+    }
+}
+
+# GET /supplychains
+@app.get("/supplychains")
+def get_supplychains():
+    return supplychains
+
+# GET /supplychains/{id}
+@app.get("/supplychains/{supplychain_id}")
+def get_supplychain_detail(supplychain_id: str):
+    if supplychain_id in supplychain_details:
+        return supplychain_details[supplychain_id]
+    raise HTTPException(status_code=404, detail="Supply chain not found")

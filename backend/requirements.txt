@@ -2,3 +2,5 @@ python-dotenv
 azure-identity
 semantic-kernel[azure] 
 openai
+fastapi
+uvicorn
