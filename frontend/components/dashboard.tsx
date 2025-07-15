@@ -16,7 +16,7 @@ interface Process {
   icon: React.ComponentType<any>
 }
 
-const processes: Process[] = [
+/* const processes: Process[] = [
   {
     id: "1",
     title: "Raw Material Sourcing",
@@ -66,6 +66,65 @@ const processes: Process[] = [
     icon: Plane,
   },
 ]
+ */
+
+const processes: Process[] = [
+  {
+    id: "1",
+    title: "Semiconductor Supply Chain – Asia to Europe",
+    description:
+      "End-to-end chip supply chain including raw material extraction in China, fabrication in Taiwan by TSMC, and final delivery to Germany",
+    riskLevel: "High",
+    steps: 6,
+    icon: Factory,
+  },
+  {
+    id: "2",
+    title: "Battery Cell Manufacturing – South Korea to EU",
+    description:
+      "Lithium extraction in Chile, refining in South Korea, and battery cell manufacturing and export to European automotive plants",
+    riskLevel: "High",
+    steps: 7,
+    icon: Package,
+  },
+  {
+    id: "3",
+    title: "Critical Minerals Supply – Africa to Asia",
+    description:
+      "Sourcing of cobalt from DRC, shipment to refining plants in China, and redistribution to battery producers in Southeast Asia",
+    riskLevel: "High",
+    steps: 5,
+    icon: Truck,
+  },
+  {
+    id: "4",
+    title: "Aftermarket Parts Logistics – EU Domestic",
+    description:
+      "Warehousing and delivery of aftermarket components for vehicle repairs across central European hubs",
+    riskLevel: "Low",
+    steps: 4,
+    icon: Package,
+  },
+  {
+    id: "5",
+    title: "Maritime Container Flow – Asia to EU",
+    description:
+      "Ocean freight route from Shanghai and Shenzhen to Rotterdam and Hamburg with high seasonal variability",
+    riskLevel: "High",
+    steps: 6,
+    icon: Ship,
+  },
+  {
+    id: "6",
+    title: "Air Freight of High-Value Electronics – Global",
+    description:
+      "Coordinated air cargo for sensitive electronics and critical components from East Asia to Europe and North America",
+    riskLevel: "Medium",
+    steps: 5,
+    icon: Plane,
+  },
+];
+
 
 const getRiskColor = (level: string) => {
   switch (level) {
