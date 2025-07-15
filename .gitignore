@@ -2,3 +2,4 @@
 /frontend/node_modules/
 /frontend/.next
 .idea
+.DS_Store
